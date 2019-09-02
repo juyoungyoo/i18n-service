@@ -1,0 +1,35 @@
+spring:
+  profiles:
+    active: local
+
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql: trace
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://recruit.cgzz7jhrx4km.ap-northeast-2.rds.amazonaws.com:3306/juy5790
+    username: juy5790
+    password: juy57905797
+    driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+---
+spring:
+  profiles: local
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
