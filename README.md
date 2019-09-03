@@ -1,21 +1,31 @@
 # Channel Backend 과제
+> I18N Service
+번역 될 문장을 나타내는 Key를 중심으로 여러 언어로의 번역을 지원
 
-## 언어 제한
-JAVA, PYTHON, GO, NODEJS 중 하나의 언어를 선택해주시기 바랍니다.
+사용 언어는 JAVA 입니다.
+TDD 사이클을 준수하며 개발하였고, 필요한 부분만 테스트를 작성하였습니다.
 
-## 프레임워크 제한
-구현을 보기 위하여, 아래 명시된 프레임 워크들의 사용을 제한합니다.
+Language detect는 detectlanguage API 사용하였습니다.  
 
-- JAVA: Spring
-- PYTHON: Django REST Framework
-- NODEJS: 제한 없음
+### 개발환경
+- JDK 1.8
+- SpringBoot 2.1.7 RELEASE
+- Gradle  
+- JPA
+- MySQL (dev)
+- H2 (test)
+- Lombok
+- Embedded Tomcat
+- TEST : JUnit 5, MockMVC, AssertJ
 
-## I18N Service
+---
+### DB 
+- Test H2를 사용
+- Dev DB(MySQL) 사용
 
-### 1. Objective
-- 번역 될 문장을 나타내는 Key를 중심으로 여러 언어로의 번역을 지원
+### DB Modeling
+![DB modeling](./asserts/DB_ERD.png)
 
-### 2. Model
 Key
 
 | Field Name | Type    | Description                                 |
@@ -25,16 +35,55 @@ Key
 
 
 Translation
-
 | Field Name | Type    | Description                             |
 |------------|---------|-----------------------------------------|
 | id         | Integer |                                         |
-| keyId      | String  | Key의 ID                                |
+| keyId      | Integer  | Key의 ID                                |
 | locale     | String  | ISO 639 Alpha-2 형식. ko, en, ja만 유효   |
 | value      | String  | 번역된 문장                               |
 
-### 3. API Specification
+### Package structure
+    ```
+    .
+    +-- config
+    +-- global
+    +-- channel
+        +-- detectlanguage
+        +-- keys
+            +-- dto
+        +-- translation
+            +-- dto
+    ```      
+ 
+### 테스트 커버리지
+![test-coverage](./asserts/coverage.png)
+  
+---
 
+### 실행 방법
+[Docker 설치](https://docs.docker.com/install/) 
+ 
+0. MySQL 세팅 
+```
+
+$ docker-compose -d up
+ 
+```
+
+1. (Gradle) Application Jar file build
+```
+
+$ ./gradlew build
+ 
+```
+2. Application 실행
+```
+
+$ java -Dspring.profiles.active=dev -jar ./build/libs/i18n-service-1.0.jar
+ 
+```
+
+### API Specification
 - 모든 키 가져오기
     * API Endpoint: /keys
     * Method: GET
@@ -55,7 +104,10 @@ Translation
                 }
             ]
         } 
-        ``` 
+        ```
+    * ```
+        curl 'http://localhost:8080/keys' -i -X POST -d '{"name":"keys"}'
+      ```         
 
 - 키 추가하기
     * API Endpoint: /keys
@@ -75,6 +127,9 @@ Translation
             }
         } 
         ```
+    * ```
+      curl 'http://localhost:8080/keys' -i -X POST -H "Content-Type: application/json" -d '{"name":"keys"}'
+      ```
 
 - 키 수정하기
     * API Endpoint: /keys/{keyId}
@@ -188,4 +243,13 @@ Translation
           "locale": "en"
         }
         ```
+    * ```
+        curl 'http://localhost:8080/language_detect?message=Hello' \ 
+        -i -X GET -H "Content-Type: application/json"
+      ```
     * https://detectlanguage.com/ 의 API를 사용해주시면 됩니다. (다른 API를 활용하셔도 됩니다.)
+    
+    
+    
+        
+  
