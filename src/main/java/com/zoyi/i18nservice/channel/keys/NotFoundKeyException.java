@@ -1,6 +1,4 @@
-package com.zoyi.i18nservice.channel.exception;
-
-import com.zoyi.i18nservice.channel.domain.KeyName;
+package com.zoyi.i18nservice.channel.keys;
 
 public class NotFoundKeyException extends IllegalArgumentException {
 

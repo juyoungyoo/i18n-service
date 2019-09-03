@@ -1,4 +1,4 @@
-package com.zoyi.i18nservice.channel.domain;
+package com.zoyi.i18nservice.channel.translation;
 
 import lombok.*;
 

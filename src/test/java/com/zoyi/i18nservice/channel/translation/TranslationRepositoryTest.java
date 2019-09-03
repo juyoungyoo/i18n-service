@@ -1,6 +1,5 @@
-package com.zoyi.i18nservice.channel.repository;
+package com.zoyi.i18nservice.channel.translation;
 
-import com.zoyi.i18nservice.channel.domain.Translation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class TranslationRepositoryTest {
 
-    private final Integer FIXTURE_KEY_ID = 2;
+    private final Integer FIXTURE_KEY_ID = 1;
 
     @Autowired
     private TranslationRepository translationRepository;
@@ -25,7 +24,7 @@ class TranslationRepositoryTest {
         translationRepository.deleteAll();
         save(FIXTURE_KEY_ID, "en", "Hi");
         save(FIXTURE_KEY_ID, "ko", "안녕하세요");
-        save(1, "en", "My name is");
+        save(2, "en", "My name is");
     }
 
     @DisplayName("키의 번역데이터 2개를 반환한다")

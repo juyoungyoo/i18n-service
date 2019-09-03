@@ -1,6 +1,5 @@
-package com.zoyi.i18nservice.channel.repository;
+package com.zoyi.i18nservice.channel.translation;
 
-import com.zoyi.i18nservice.channel.domain.Translation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

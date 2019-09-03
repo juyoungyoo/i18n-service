@@ -1,8 +1,7 @@
-package com.zoyi.i18nservice.channel.controller;
+package com.zoyi.i18nservice.channel.detectlanguage;
 
 import com.detectlanguage.DetectLanguage;
 import com.detectlanguage.errors.APIError;
-import com.zoyi.i18nservice.channel.dto.LocaleResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

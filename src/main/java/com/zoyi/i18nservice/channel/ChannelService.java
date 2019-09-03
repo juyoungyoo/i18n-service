@@ -1,13 +1,13 @@
-package com.zoyi.i18nservice.channel.service;
+package com.zoyi.i18nservice.channel;
 
-import com.zoyi.i18nservice.channel.domain.Key;
-import com.zoyi.i18nservice.channel.domain.KeyName;
-import com.zoyi.i18nservice.channel.domain.Translation;
-import com.zoyi.i18nservice.channel.dto.TranslationRequestDto;
-import com.zoyi.i18nservice.channel.exception.NotFoundKeyException;
-import com.zoyi.i18nservice.channel.exception.NotFoundTranslationException;
-import com.zoyi.i18nservice.channel.repository.KeyRepository;
-import com.zoyi.i18nservice.channel.repository.TranslationRepository;
+import com.zoyi.i18nservice.channel.keys.Key;
+import com.zoyi.i18nservice.channel.keys.KeyName;
+import com.zoyi.i18nservice.channel.translation.Translation;
+import com.zoyi.i18nservice.channel.translation.dto.TranslationRequestDto;
+import com.zoyi.i18nservice.channel.keys.NotFoundKeyException;
+import com.zoyi.i18nservice.channel.translation.NotFoundTranslationException;
+import com.zoyi.i18nservice.channel.keys.KeyRepository;
+import com.zoyi.i18nservice.channel.translation.TranslationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,18 +33,18 @@ public class ChannelService {
         return key;
     }
 
-    public Key createOfKey(KeyName name) {
+    public Key createKey(KeyName name) {
         return keyRepository.save(Key.of(name));
     }
 
-    public Key updateOfKey(Integer keyId, KeyName name) {
+    public Key updateKey(Integer keyId, KeyName name) {
         Key key = keyRepository.findById(keyId)
                 .orElseThrow(() -> new NotFoundKeyException(keyId));
         key.update(name);
         return keyRepository.save(key);
     }
 
-    public Translation createOfTranslation(Translation translation) {
+    public Translation createTranslation(Translation translation) {
         return translationRepository.save(translation);
     }
 
@@ -52,7 +52,7 @@ public class ChannelService {
         return translationRepository.findAllByKeyId(keyId);
     }
 
-    public Translation findTranslation(TranslationRequestDto requestDto) {
+    public Translation searchTranslation(TranslationRequestDto requestDto) {
         return findTranslation(requestDto.getKeyId(), requestDto.getLocale());
     }
 

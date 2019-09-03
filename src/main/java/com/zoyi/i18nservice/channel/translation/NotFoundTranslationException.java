@@ -1,4 +1,4 @@
-package com.zoyi.i18nservice.channel.exception;
+package com.zoyi.i18nservice.channel.translation;
 
 public class NotFoundTranslationException extends IllegalArgumentException {
 

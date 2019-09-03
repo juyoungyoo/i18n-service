@@ -1,4 +1,4 @@
-package com.zoyi.i18nservice.channel.test;
+package com.zoyi.i18nservice.channel.learningtest;
 
 import com.detectlanguage.DetectLanguage;
 import com.detectlanguage.Result;
@@ -12,16 +12,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DetectLanguageTest {
+class DetectLanguageTest {
 
-
+    private static final String API_KEY = "be9af9d428732bbcb6a096a674a3b104";
     private static final Logger log = LoggerFactory.getLogger(DetectLanguageTest.class);
 
     @ParameterizedTest
     @CsvSource({"안녕하세요, ko",
             "Hello world, en"})
     void detectLanguage(String text, String expectedLocale) throws APIError {
-        DetectLanguage.apiKey = "be9af9d428732bbcb6a096a674a3b104";
+        DetectLanguage.apiKey = API_KEY;
 
         String language = DetectLanguage.simpleDetect(text);
 
@@ -34,7 +34,7 @@ public class DetectLanguageTest {
     @CsvSource({"안녕하세요, ko",
             "Hello world, en"})
     void detectLanguages(String text, String expectedLocale) throws APIError {
-        DetectLanguage.apiKey = "be9af9d428732bbcb6a096a674a3b104";
+        DetectLanguage.apiKey = API_KEY;
 
         List<Result> results = DetectLanguage.detect(text);
         Result result = results.get(0);

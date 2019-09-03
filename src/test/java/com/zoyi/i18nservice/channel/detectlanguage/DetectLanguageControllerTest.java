@@ -1,4 +1,4 @@
-package com.zoyi.i18nservice.channel.controller;
+package com.zoyi.i18nservice.channel.detectlanguage;
 
 import com.zoyi.i18nservice.supports.BaseControllerTest;
 import org.junit.jupiter.api.DisplayName;

@@ -11,7 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.util.MultiValueMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -27,19 +26,6 @@ public class BaseControllerTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
-
-    protected ResultActions getResource(String url) throws Exception {
-        return mockMvc.perform(get(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
-    }
-
-    protected ResultActions getResources(String url, MultiValueMap parameters) throws Exception {
-        return mockMvc.perform(get(url)
-                .params(parameters)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
-    }
 
     protected <T> ResultActions postResource(String url, T body) throws Exception {
         return mockMvc.perform(post(url)

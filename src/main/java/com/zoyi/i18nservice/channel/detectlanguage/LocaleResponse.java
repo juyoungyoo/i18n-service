@@ -1,4 +1,4 @@
-package com.zoyi.i18nservice.channel.dto;
+package com.zoyi.i18nservice.channel.detectlanguage;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
