@@ -30,7 +30,6 @@ public class TranslationController {
                                             @PathVariable String locale) {
         TranslationRequestDto translationRequestDto = new TranslationRequestDto(keyId, locale);
         Translation translation = translationService.searchTranslation(translationRequestDto);
-
         return ResponseEntity.ok(new TranslationResponse(translation));
     }
 
@@ -38,11 +37,7 @@ public class TranslationController {
     public ResponseEntity updateTranslation(@PathVariable Integer keyId,
                                             @PathVariable String locale,
                                             @RequestBody String value) {
-        TranslationRequestDto.Update updateDto = TranslationRequestDto.Update.builder()
-                .keyId(keyId)
-                .locale(locale)
-                .value(value)
-                .build();
+        TranslationRequestDto.CreateOrUpdate updateDto = convertRequestDto(keyId, locale, value);
 
         Translation translation = translationService.updateOfTranslation(updateDto.toEntity());
         return ResponseEntity.ok(new TranslationResponse(translation));
@@ -52,13 +47,17 @@ public class TranslationController {
     public ResponseEntity createTranslation(@PathVariable Integer keyId,
                                             @PathVariable String locale,
                                             @RequestBody String value) {
-        Translation translation = Translation.builder()
+        TranslationRequestDto.CreateOrUpdate createRequestDto = convertRequestDto(keyId, locale, value);
+
+        Translation newTranslation = translationService.createTranslation(createRequestDto.toEntity());
+        return ResponseEntity.status(HttpStatus.CREATED).body(new TranslationResponse(newTranslation));
+    }
+
+    private TranslationRequestDto.CreateOrUpdate convertRequestDto(Integer keyId, String locale, String value) {
+        return TranslationRequestDto.CreateOrUpdate.builder()
                 .keyId(keyId)
                 .locale(locale)
                 .value(value)
                 .build();
-
-        Translation newTranslation = translationService.createTranslation(translation);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new TranslationResponse(newTranslation));
     }
 }
