@@ -19,8 +19,8 @@ app-detect-language:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/channel?characterEncoding=UTF-8&serverTimezone=UTC&useUnicode=true
-    username: channel
+    url: jdbc:mysql://localhost:3306/domain?characterEncoding=UTF-8&serverTimezone=UTC&useUnicode=true
+    username: domain
     password: pass
     driver-class-name: com.mysql.jdbc.Driver
 
