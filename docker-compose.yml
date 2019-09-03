@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  db:
+    container_name: channel_mysql
+    image: mysql:5.7
+    command: --lower_case_table_names=1
+    environment:
+      TZ: "Asfsia/Seoul"
+      MYSQL_ROOT_PASSWORD: "pass"
+      MYSQL_USER: "channel"
+      MYSQL_PASSWORD: "pass"
+      MYSQL_DATABASE: "channel"
+    ports:
+    - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-uroot", "-ppass",  "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+#Todo : api 자동 실행, Dockerfile delete
+  api:
+    container_name: channel_api
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+    image: channel/api
+    ports:
+    - 8080:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthy"]
+      interval: 30s
+      timeout: 60s
+      retries: 15
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/myapp
+    working_dir: /usr/src/myapp
+    command: bash -c "java -Dspring.profiles.active=dev -jar i18n-service-1.0.jar"
+    stdin_open: true
+    tty: true

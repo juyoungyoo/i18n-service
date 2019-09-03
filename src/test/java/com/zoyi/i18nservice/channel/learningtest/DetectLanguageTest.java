@@ -3,18 +3,27 @@ package com.zoyi.i18nservice.channel.learningtest;
 import com.detectlanguage.DetectLanguage;
 import com.detectlanguage.Result;
 import com.detectlanguage.errors.APIError;
+import com.zoyi.i18nservice.config.AppProperties;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = AppProperties.class)
 class DetectLanguageTest {
 
-    private static final String API_KEY = "be9af9d428732bbcb6a096a674a3b104";
+    @Value("${app-detect-language.api-key}")
+    private String API_KEY;
+
     private static final Logger log = LoggerFactory.getLogger(DetectLanguageTest.class);
 
     @ParameterizedTest
