@@ -20,7 +20,7 @@ public class TranslationRequestDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class Update {
+    public static class CreateOrUpdate {
 
         private Integer keyId;
 
@@ -29,7 +29,7 @@ public class TranslationRequestDto {
         private String value;
 
         @Builder
-        public Update(Integer keyId, String locale, String value) {
+        public CreateOrUpdate(Integer keyId, String locale, String value) {
             this.keyId = keyId;
             this.locale = locale;
             this.value = value;

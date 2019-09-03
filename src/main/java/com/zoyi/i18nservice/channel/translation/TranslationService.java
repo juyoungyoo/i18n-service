@@ -14,16 +14,16 @@ public class TranslationService {
         this.translationRepository = translationRepository;
     }
 
-    Translation createTranslation(Translation translation) {
-        return translationRepository.save(translation);
-    }
-
     List<Translation> searchTranslations(Integer keyId) {
         return translationRepository.findAllByKeyId(keyId);
     }
 
     Translation searchTranslation(TranslationRequestDto requestDto) {
         return findTranslation(requestDto.getKeyId(), requestDto.getLocale());
+    }
+
+    Translation createTranslation(Translation translation) {
+        return translationRepository.save(translation);
     }
 
     Translation updateOfTranslation(Translation translation) {
