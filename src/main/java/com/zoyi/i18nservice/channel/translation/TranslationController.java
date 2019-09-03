@@ -37,9 +37,13 @@ public class TranslationController {
     public ResponseEntity updateTranslation(@PathVariable Integer keyId,
                                             @PathVariable String locale,
                                             @RequestBody String value) {
-        TranslationRequestDto.CreateOrUpdate updateDto = convertRequestDto(keyId, locale, value);
+        TranslationRequestDto.Update updateDto = TranslationRequestDto.Update.builder()
+                .keyId(keyId)
+                .locale(locale)
+                .value(value)
+                .build();
 
-        Translation translation = translationService.updateOfTranslation(updateDto.toEntity());
+        Translation translation = translationService.updateOfTranslation(updateDto);
         return ResponseEntity.ok(new TranslationResponse(translation));
     }
 
@@ -47,17 +51,7 @@ public class TranslationController {
     public ResponseEntity createTranslation(@PathVariable Integer keyId,
                                             @PathVariable String locale,
                                             @RequestBody String value) {
-        TranslationRequestDto.CreateOrUpdate createRequestDto = convertRequestDto(keyId, locale, value);
-
-        Translation newTranslation = translationService.createTranslation(createRequestDto.toEntity());
+        Translation newTranslation = translationService.createTranslation(keyId, locale, value);
         return ResponseEntity.status(HttpStatus.CREATED).body(new TranslationResponse(newTranslation));
-    }
-
-    private TranslationRequestDto.CreateOrUpdate convertRequestDto(Integer keyId, String locale, String value) {
-        return TranslationRequestDto.CreateOrUpdate.builder()
-                .keyId(keyId)
-                .locale(locale)
-                .value(value)
-                .build();
     }
 }

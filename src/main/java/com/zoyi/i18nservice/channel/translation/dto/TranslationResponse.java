@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TranslationResponse {
 
-    private Translation translation;
+    private TranslationDto translation;
 
     public TranslationResponse(Translation translation) {
-        this.translation = translation;
+        this.translation = TranslationDto.of(translation);
     }
 }

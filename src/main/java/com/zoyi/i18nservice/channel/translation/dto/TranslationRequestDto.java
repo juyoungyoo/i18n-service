@@ -1,6 +1,5 @@
 package com.zoyi.i18nservice.channel.translation.dto;
 
-import com.zoyi.i18nservice.channel.translation.Translation;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +19,7 @@ public class TranslationRequestDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class CreateOrUpdate {
+    public static class Update {
 
         private Integer keyId;
 
@@ -29,18 +28,10 @@ public class TranslationRequestDto {
         private String value;
 
         @Builder
-        public CreateOrUpdate(Integer keyId, String locale, String value) {
+        public Update(Integer keyId, String locale, String value) {
             this.keyId = keyId;
             this.locale = locale;
             this.value = value;
-        }
-
-        public Translation toEntity() {
-            return Translation.builder()
-                    .keyId(keyId)
-                    .locale(locale)
-                    .value(value)
-                    .build();
         }
     }
 }
