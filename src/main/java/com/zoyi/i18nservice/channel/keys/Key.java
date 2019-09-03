@@ -2,11 +2,9 @@ package com.zoyi.i18nservice.channel.keys;
 
 import lombok.*;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Table(name = "TB_KEYS")
 @Entity
 @Getter
 @EqualsAndHashCode(of = "id")

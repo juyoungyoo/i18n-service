@@ -4,10 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Table(name = "TB_TRANSLATION")
 @Entity
 @Getter
 @EqualsAndHashCode(of = "id")
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Translation {
@@ -16,7 +16,7 @@ public class Translation {
     @GeneratedValue
     private Integer id;
 
-    private Integer keyId;
+    private Integer keyId; // Key
 
     @Column(nullable = false)
     private String locale;
