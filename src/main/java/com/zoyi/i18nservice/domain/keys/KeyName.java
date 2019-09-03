@@ -12,10 +12,13 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class KeyName {
 
+    static final String REGEX_OF_NAME = "([a-z]|\\.)*";
+
     @Column(unique = true, nullable = false)
+    @javax.validation.constraints.Pattern(regexp = REGEX_OF_NAME)
     private String name;
 
-    private KeyName(String name) {
+    KeyName(String name) {
         this.name = name;
     }
 

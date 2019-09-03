@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class KeysController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody KeyName name) {
+    public ResponseEntity create(@RequestBody @Valid KeyName name) {
         Key key = channelService.createKey(name);
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -39,7 +40,7 @@ public class KeysController {
 
     @PutMapping("/{keyId}")
     public ResponseEntity update(@PathVariable Integer keyId,
-                                 @RequestBody KeyName name) {
+                                 @RequestBody @Valid KeyName name) {
         Key updateKey = channelService.updateKey(keyId, name);
         return ResponseEntity.ok(KeyResponse.of(updateKey));
     }
