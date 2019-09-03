@@ -8,9 +8,10 @@ import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
-
 import java.util.stream.IntStream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -74,6 +75,16 @@ class KeysControllerTest extends BaseControllerTest {
                 .andExpect(jsonPath("key.name").value(request.getName()));
     }
 
+    @DisplayName("키 이름이 조건에 맞지 않을 시 키를 생성하는데 실패한다")
+    @ParameterizedTest
+    @ValueSource(strings = {"ASDF", "123", "ASDF.", ".123"})
+    void createKey_fail(String wrongName) throws Exception {
+        KeyName request = KeyName.of(wrongName);
+
+        postResource(CHANNEL_URL, request)
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
     @DisplayName("키를 수정한다")
     @Test
     void updateKey() throws Exception {
@@ -85,6 +96,16 @@ class KeysControllerTest extends BaseControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("key.id").value(originKey.getId()))
                 .andExpect(jsonPath("key.name").value(request.getName()));
+    }
+
+    @DisplayName("키 이름이 조건에 맞지 않을 시 키를 수정에 실패한다")
+    @ParameterizedTest
+    @ValueSource(strings = {"ASDF", "123", "ASDF.", ".123"})
+    void updateKey_fail(String wrongName) throws Exception {
+        KeyDto originKey = generateKey(FIXTURE_KEY_NAME.getName());
+
+        putResource(CHANNEL_URL + "/" + originKey.getId(), wrongName)
+                .andExpect(status().isBadRequest());
     }
 
     private void generateKey(int count) {
