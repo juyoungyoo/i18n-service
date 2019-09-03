@@ -2,6 +2,8 @@ package com.zoyi.i18nservice.channel.keys;
 
 import com.zoyi.i18nservice.channel.keys.dto.KeyDto;
 import com.zoyi.i18nservice.channel.keys.dto.KeyResponse;
+import com.zoyi.i18nservice.channel.translation.TranslationRepository;
+import com.zoyi.i18nservice.channel.translation.dto.TranslationRequestDto;
 import com.zoyi.i18nservice.supports.BaseControllerTest;
 import org.apache.logging.log4j.util.Strings;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,8 +28,12 @@ class KeysControllerTest extends BaseControllerTest {
     @Autowired
     private KeyRepository keyRepository;
 
+    @Autowired
+    private TranslationRepository translationRepository;
+
     @BeforeEach
     void setUp() {
+        translationRepository.deleteAll();
         keyRepository.deleteAll();
     }
 

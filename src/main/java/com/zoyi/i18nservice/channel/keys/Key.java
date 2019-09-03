@@ -14,6 +14,7 @@ public class Key {
 
     @Id
     @GeneratedValue
+    @Column(name = "key_id")
     private Integer id;
 
     @Embedded

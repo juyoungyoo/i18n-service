@@ -13,6 +13,11 @@ public class KeysService {
         this.keyRepository = keyRepository;
     }
 
+    public Key searchKey(Integer keyId) {
+        return keyRepository.findById(keyId)
+                .orElseThrow(() -> new NotFoundKeyException(keyId));
+    }
+
     List<Key> findAll() {
         return keyRepository.findAll();
     }

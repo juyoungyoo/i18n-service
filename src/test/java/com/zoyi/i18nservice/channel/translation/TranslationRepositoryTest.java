@@ -1,5 +1,9 @@
 package com.zoyi.i18nservice.channel.translation;
 
+import com.zoyi.i18nservice.channel.keys.Key;
+import com.zoyi.i18nservice.channel.keys.KeyName;
+import com.zoyi.i18nservice.channel.keys.KeyRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,11 +14,13 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 @DataJpaTest
 class TranslationRepositoryTest {
 
-    private final Integer FIXTURE_KEY_ID = 1;
+    private Key FIXTURE_KEY;
+
+    @Autowired
+    private KeyRepository keyRepository;
 
     @Autowired
     private TranslationRepository translationRepository;
@@ -22,15 +28,17 @@ class TranslationRepositoryTest {
     @BeforeEach
     void setUp() {
         translationRepository.deleteAll();
-        save(FIXTURE_KEY_ID, "en", "Hi");
-        save(FIXTURE_KEY_ID, "ko", "안녕하세요");
-        save(2, "en", "My name is");
+        keyRepository.deleteAll();
+        FIXTURE_KEY = keyRepository.save(Key.of(KeyName.of("test")));
+
+        save("en", "Hi");
+        save("ko", "안녕하세요");
     }
 
     @DisplayName("키의 번역데이터 2개를 반환한다")
     @Test
     void findAllByKeyId() {
-        List<Translation> result = translationRepository.findAllByKeyId(FIXTURE_KEY_ID);
+        List<Translation> result = translationRepository.findAllByKeyId(FIXTURE_KEY.getId());
 
         assertThat(result).hasSize(2);
         assertThat(result).extracting(Translation::getLocale).containsExactly("en", "ko");
@@ -41,16 +49,16 @@ class TranslationRepositoryTest {
     void findByKeyIdAndLocale() {
         String expectedLocale = "en";
 
-        Translation result = translationRepository.findByKeyIdAndLocale(FIXTURE_KEY_ID, expectedLocale)
+        Translation result = translationRepository.findByKeyIdAndLocale(FIXTURE_KEY.getId(), expectedLocale)
                 .get();
 
-        assertThat(result.getKeyId()).isEqualTo(FIXTURE_KEY_ID);
+        assertThat(result.getKey()).isEqualTo(FIXTURE_KEY.getId());
         assertThat(result.getLocale()).isEqualTo(expectedLocale);
     }
 
-    private Translation save(Integer keyId, String locale, String value) {
+    private Translation save(String locale, String value) {
         Translation translation = Translation.builder()
-                .keyId(keyId)
+                .key(FIXTURE_KEY)
                 .locale(locale)
                 .value(value)
                 .build();

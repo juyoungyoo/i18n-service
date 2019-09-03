@@ -6,14 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TranslationsResponse {
 
-    private List<Translation> translations;
+    private List<TranslationDto> translations;
 
     public TranslationsResponse(List<Translation> translations) {
-        this.translations = translations;
+        this.translations = translations.stream()
+                .map(TranslationDto::of)
+                .collect(Collectors.toList());
     }
 }
