@@ -1,6 +1,5 @@
 package com.zoyi.i18nservice.channel.translation;
 
-import com.zoyi.i18nservice.channel.ChannelService;
 import com.zoyi.i18nservice.channel.translation.dto.TranslationRequestDto;
 import com.zoyi.i18nservice.channel.translation.dto.TranslationResponse;
 import com.zoyi.i18nservice.channel.translation.dto.TranslationsResponse;
@@ -14,15 +13,15 @@ import java.util.List;
 @RequestMapping("/keys/{keyId}/translations")
 public class TranslationController {
 
-    private final ChannelService channelService;
+    private final TranslationService translationService;
 
-    public TranslationController(ChannelService channelService) {
-        this.channelService = channelService;
+    public TranslationController(TranslationService translationService) {
+        this.translationService = translationService;
     }
 
     @GetMapping
     public ResponseEntity searchTranslation(@PathVariable Integer keyId) {
-        List<Translation> translations = channelService.searchTranslations(keyId);
+        List<Translation> translations = translationService.searchTranslations(keyId);
         return ResponseEntity.ok(new TranslationsResponse(translations));
     }
 
@@ -30,7 +29,7 @@ public class TranslationController {
     public ResponseEntity searchTranslation(@PathVariable Integer keyId,
                                             @PathVariable String locale) {
         TranslationRequestDto translationRequestDto = new TranslationRequestDto(keyId, locale);
-        Translation translation = channelService.searchTranslation(translationRequestDto);
+        Translation translation = translationService.searchTranslation(translationRequestDto);
 
         return ResponseEntity.ok(new TranslationResponse(translation));
     }
@@ -45,7 +44,7 @@ public class TranslationController {
                 .value(value)
                 .build();
 
-        Translation translation = channelService.updateOfTranslation(updateDto.toEntity());
+        Translation translation = translationService.updateOfTranslation(updateDto.toEntity());
         return ResponseEntity.ok(new TranslationResponse(translation));
     }
 
@@ -59,7 +58,7 @@ public class TranslationController {
                 .value(value)
                 .build();
 
-        Translation newTranslation = channelService.createTranslation(translation);
+        Translation newTranslation = translationService.createTranslation(translation);
         return ResponseEntity.status(HttpStatus.CREATED).body(new TranslationResponse(newTranslation));
     }
 }

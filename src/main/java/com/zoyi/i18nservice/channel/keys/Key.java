@@ -25,7 +25,7 @@ public class Key {
         return new Key(null, name);
     }
 
-    public void update(KeyName name) {
+    void update(KeyName name) {
         this.name = name;
     }
 

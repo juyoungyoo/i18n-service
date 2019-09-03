@@ -15,7 +15,7 @@ public class KeyName {
     @Column(unique = true, nullable = false)
     private String name;
 
-    KeyName(String name) {
+    private KeyName(String name) {
         this.name = name;
     }
 

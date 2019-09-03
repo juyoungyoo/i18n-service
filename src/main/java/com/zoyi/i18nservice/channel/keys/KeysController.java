@@ -1,6 +1,5 @@
 package com.zoyi.i18nservice.channel.keys;
 
-import com.zoyi.i18nservice.channel.ChannelService;
 import com.zoyi.i18nservice.channel.keys.dto.KeyResponse;
 import com.zoyi.i18nservice.channel.keys.dto.KeysResponse;
 import org.springframework.http.HttpStatus;
@@ -14,9 +13,9 @@ import java.util.Objects;
 @RestController
 public class KeysController {
 
-    private final ChannelService channelService;
+    private final KeysService channelService;
 
-    public KeysController(ChannelService channelService) {
+    public KeysController(KeysService channelService) {
         this.channelService = channelService;
     }
 
