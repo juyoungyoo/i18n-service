@@ -13,4 +13,8 @@ import java.util.Locale;
 public class LocaleResponse {
 
     private Locale locale;
+
+    static LocaleResponse of(String language) {
+        return new LocaleResponse(new Locale(language));
+    }
 }
