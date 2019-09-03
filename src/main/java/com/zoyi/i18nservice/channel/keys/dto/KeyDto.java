@@ -1,6 +1,6 @@
-package com.zoyi.i18nservice.channel.dto;
+package com.zoyi.i18nservice.channel.keys.dto;
 
-import com.zoyi.i18nservice.channel.domain.Key;
+import com.zoyi.i18nservice.channel.keys.Key;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
