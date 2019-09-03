@@ -5,7 +5,8 @@
 사용 언어는 JAVA 입니다.
 TDD 사이클을 준수하며 개발하였고, 필요한 부분만 테스트를 작성하였습니다.
 
-Language detect는 detectlanguage API 사용하였습니다.  
+Language detect는 `detectlanguage API` 사용하였습니다.
+API KEY는 application.yml 파일에 추가 후 빌드해주세요. 
 
 ### 개발환경
 - JDK 1.8
@@ -24,8 +25,6 @@ Language detect는 detectlanguage API 사용하였습니다.
 - Dev DB(MySQL) 사용
 
 ### DB Modeling
-![DB modeling](./asserts/DB_ERD.png)
-
 Key
 
 | Field Name | Type    | Description                                 |
@@ -47,7 +46,7 @@ Translation
     .
     +-- config
     +-- global
-    +-- channel
+    +-- domain
         +-- detectlanguage
         +-- keys
             +-- dto
@@ -63,7 +62,8 @@ Translation
 ### 실행 방법
 [Docker 설치](https://docs.docker.com/install/) 
  
-0. MySQL 세팅 
+0. MySQL 세팅 및 실행
+Host : localhost:3306/channel 
 ```
 
 $ docker-compose -d up
