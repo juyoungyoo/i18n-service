@@ -31,7 +31,7 @@ public class Translation {
         this.value = value;
     }
 
-    public void update(Translation translation) {
+    void update(Translation translation) {
         this.value = translation.value;
     }
 }
