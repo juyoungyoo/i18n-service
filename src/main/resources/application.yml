@@ -19,14 +19,14 @@ app-detect-language:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://localhost:3306/channel?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/channel?characterEncoding=UTF-8&serverTimezone=UTC&useUnicode=true
     username: channel
     password: pass
     driver-class-name: com.mysql.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 ---
 spring:
